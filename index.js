@@ -43,7 +43,7 @@ function getOptions(overrides) {
 
 // Pre-CommandProcessor
 plugin.messageSystem().on('message-in', (msg) => {
-  if (commandProcessorExists || !(msg.text.startsWith(prefix) || msg.data.isPM)) return;
+  if (commandProcessorExists || msg.type !== 'text' || !(msg.text.startsWith(prefix) || msg.data.isPM)) return;
 
   const {message, flags} = getFlags(msg.text);
 
