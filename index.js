@@ -43,7 +43,7 @@ function getOptions(overrides) {
 
 // Pre-CommandProcessor
 plugin.messageSystem().on('message-in', (msg) => {
-  if (commandProcessorExists || !msg.text.startsWith(prefix)) return;
+  if (commandProcessorExists || !(msg.text.startsWith(prefix) || msg.data.isPM)) return;
 
   const {message, flags} = getFlags(msg.text);
 
@@ -54,7 +54,7 @@ plugin.messageSystem().on('message-in', (msg) => {
 
   sendMessage(msg, handleCommand({
     flags,
-    command: getCommand(args.shift()),
+    command: getCommand(args.shift()).toLowerCase().trim(),
     text: args.join(' ').trim(),
   }));
 });
